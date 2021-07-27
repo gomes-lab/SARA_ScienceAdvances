@@ -3,6 +3,7 @@ Compute center from images
 """
 from scipy import ndimage
 from scipy import signal
+from scipy.spatial import distance
 import sys
 from PIL import Image
 from transition_finder import *
@@ -41,3 +42,52 @@ def get_center(camera_client = None, camera_info = None, img = None, img_info = 
     center = np.average(centers, weights = weights)
     return center, img, img_info, img_data
 
+#Find LSA center
+def get_center_cos_corr(data):
+#Using the cosine method
+    maximum = 1.
+    for i in range(int(round((data.shape[1])*0.35)),int(round((data.shape[1])*0.65))):
+        delta = min(i,data.shape[1]-i)
+        dl = data[:,i-delta:i]
+        dr = data[:,i:i+delta]
+        norm = 0.
+        for j in range(dl.shape[1]):
+            norm += distance.cosine(dl[:,-j] , dr[:,j])
+        norm = norm/dl.shape[1]
+        if norm < maximum:
+            maximum = norm
+            imaximum = i
+#Using the correlation method
+    im1 = np.array(data[:,:])
+    im = cp.deepcopy(im1)
+    center = []
+    weights = []
+    weights_max = []
+    corr = []
+    for i in range(im1.shape[0]):
+        result = ndimage.correlate(im1[i,:],np.flip(im1[i,:],0), mode='wrap')
+        result = np.array(result)-np.mean(np.array(result))
+        result = fft_smoothing(np.array(result),25.)
+        im[i,:] = result
+        center.append(np.argmax(result))
+        #print(np.argmax(result),np.amax(result)**2)
+        corr.append(result)
+        weights.append(sum(np.abs(im1[i,:])))
+        weights_max.append(np.amax(result)**4)
+    corr = np.array(corr)
+    smooth = []
+    for i in range(corr.shape[1]):
+        smooth.append(np.mean(corr[:,i]))
+    smd = fft_smoothing(np.array(smooth),25.)
+    center = np.array(center)
+    weights = np.array(weights)
+    imaximum_conv = (len(result))*0.5 + (np.average(center,weights=weights_max)-(len(result))*0.5)*0.5
+    return imaximum, imaximum_conv
+
+#Helper functions
+def fft_smoothing(d,param):
+#d is a 1D vector, param is the cutoff frequency
+    rft = np.fft.rfft(d)
+    rft[int(param):] = 0.
+    d = np.fft.irfft(rft,len(d))
+    return d

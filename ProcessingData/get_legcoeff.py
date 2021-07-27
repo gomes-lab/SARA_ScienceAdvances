@@ -14,8 +14,10 @@ import glob
 import matplotlib.pyplot as plt
 from numpy.polynomial import polynomial
 from matplotlib import cm
+from center import *
 from numpy.polynomial import legendre
 import zone as LSA_Zone
+import temps as fit_general
 
 def get_leg_fit1d(data,xval,deg):
     x = (xval-np.min(xval)) ; x = x/np.max(x)*2.-1.
@@ -27,6 +29,9 @@ def eval_leg_fit1d(xval,m):
     x = (xval-np.min(xval)) ; x = x/np.max(x)*2.-1.
     return legendre.legval(x, m)
 
+def pos2wafer(pos,pos_wafer):
+    return (pos+1.)*0.5 * (np.max(pos_wafer)-np.min(pos_wafer)) + np.min(pos_wafer)
+
 #Source data
 fn_mirror = 'Bi2O3/Reflectance/mirror_00.csv' 
 fn_blank =  'Bi2O3/Reflectance/blank_00.csv' 
@@ -36,6 +41,9 @@ data_files = glob.glob('Bi2O3/Reflectance/s*_*_*.csv')
 lmin = 400
 lmax = 1600
 
+#For the temperature profile
+x0_general = fit_general.set_params()
+x0_general_si = fit_general.set_params_si()
 dataset_all = {}
 dataset_spectra = []
 for fn_data in data_files[:]:
@@ -55,7 +63,6 @@ for fn_data in data_files[:]:
     x = np.linspace(-1,1,num=normal_data.shape[0],endpoint=True) #Dimension along wavelength
 
     #Position on wafer in mm
-    #pos_wafer = np.linspace(meta['delta start'][0] + meta['scan center'][0],meta['delta end'][0] + meta['scan center'][0],normal_data.shape[1])
     pos_wafer = np.linspace(meta['Position']['Range'][0][0] + meta['Position']['Center'][0] , meta['Position']['Range'][1][0] + meta['Position']['Center'][0], normal_data.shape[1])
 
     #Fit every stripe
@@ -65,6 +72,15 @@ for fn_data in data_files[:]:
         cfit.append(m.tolist())
     dump_data["legendre_coeffs"] = cfit
     cfit = np.array(cfit)
+
+    #Get center from the spectrometer file!
+    center_cos, center_conv = get_center_cos_corr(normal_data)
+    #Convert center into units between -1 and 1
+    center = center_conv/normal_data.shape[1]*2.-1.
+    dump_data["center_scaled"] = center
+    dump_data["center_real"] = pos2wafer(center, pos_wafer)
+    dump_data["center_cos"] = center_cos
+    dump_data["center_conv"] = center_conv
 
     #Plot raw data
     title_str = "Dwell "+str(meta["dwell"])+"\u03bcs, Tpeak "+str(meta["Tpeak"])+"℃"
@@ -95,11 +111,19 @@ for fn_data in data_files[:]:
 
 
     #Store metadata
+    x_pos = np.array(pos_wafer) - np.array(dump_data["center_real"])
+    x_pos *= 1000.
+    x_pos = np.abs(x_pos)
     logtau = np.log10(meta["dwell"])
     logtau_ms = np.log10(meta["dwell"]*0.001)
     dump_data["logtau"] = logtau.tolist()
     dump_data["logtau_ms"] = logtau_ms.tolist()
     Tpeak = meta["Tpeak"]
+    x_temps_general = fit_general.T(Tpeak, fit_general.ffwhm(x0_general, Tpeak, logtau), fit_general.aampl(x0_general, Tpeak, logtau), x_pos)
+    x_temps_general_si = fit_general.T(Tpeak, fit_general.ffwhm(x0_general_si, Tpeak, logtau), fit_general.aampl(x0_general_si, Tpeak, logtau), x_pos)
+    dump_data["temp_pos"] = x_pos.tolist()
+    dump_data["temp_profile"] = x_temps_general.tolist()
+    dump_data["temp_profile_si"] = x_temps_general_si.tolist()
 
 dataset_all["wavelengths"] = wl[lmin:lmax].tolist()
 dataset_all["spectra"] = dataset_spectra
