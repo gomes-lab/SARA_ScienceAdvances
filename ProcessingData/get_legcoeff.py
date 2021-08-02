@@ -17,7 +17,6 @@ from matplotlib import cm
 from center import *
 from numpy.polynomial import legendre
 import zone as LSA_Zone
-import temps as fit_general
 
 def get_leg_fit1d(data,xval,deg):
     x = (xval-np.min(xval)) ; x = x/np.max(x)*2.-1.
@@ -41,9 +40,6 @@ data_files = glob.glob('Bi2O3/Reflectance/s*_*_*.csv')
 lmin = 400
 lmax = 1600
 
-#For the temperature profile
-x0_general = fit_general.set_params()
-x0_general_si = fit_general.set_params_si()
 dataset_all = {}
 dataset_spectra = []
 for fn_data in data_files[:]:
@@ -119,11 +115,6 @@ for fn_data in data_files[:]:
     dump_data["logtau"] = logtau.tolist()
     dump_data["logtau_ms"] = logtau_ms.tolist()
     Tpeak = meta["Tpeak"]
-    x_temps_general = fit_general.T(Tpeak, fit_general.ffwhm(x0_general, Tpeak, logtau), fit_general.aampl(x0_general, Tpeak, logtau), x_pos)
-    x_temps_general_si = fit_general.T(Tpeak, fit_general.ffwhm(x0_general_si, Tpeak, logtau), fit_general.aampl(x0_general_si, Tpeak, logtau), x_pos)
-    dump_data["temp_pos"] = x_pos.tolist()
-    dump_data["temp_profile"] = x_temps_general.tolist()
-    dump_data["temp_profile_si"] = x_temps_general_si.tolist()
 
 dataset_all["wavelengths"] = wl[lmin:lmax].tolist()
 dataset_all["spectra"] = dataset_spectra
