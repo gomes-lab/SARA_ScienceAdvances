@@ -1,9 +1,12 @@
 # SARA_ScienceAdvances
 
-The raw data is available in ./Bi2O3. To process the data follow the instructions below.
+The raw data is available from eCommons (link). Download the image/spectroscopy data separately, and to process the data follow the instructions below.
+
+## Preprocessing
+Before running below scripts, copy the raw data to `ProcessingData/Bi2O3`, or modify the paths in the relevant python files.
 
 ## Extract features from images
-Execute
+In `ProcessingData`, execute
 ```
 python get_gp-bias.py
 ```
@@ -11,7 +14,7 @@ This script will extract the features from the images and create separate plots,
 The bias features will be written to a file called `bias.json`
 
 ## Process and plot reflectance spectroscopy
-Execute
+In `ProcessingData`, execute
 ```
 python get_legcoeff.py
 ```
