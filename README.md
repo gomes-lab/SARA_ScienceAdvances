@@ -3,7 +3,7 @@
 The raw data is available from eCommons (link). Download the image/spectroscopy data separately, and to process the data follow the instructions below.
 
 ## Preprocessing
-Before running below scripts, copy the raw data from microscopy imaging and reflectance measurements available from `https://doi.org/10.7298/h63q-9r54` to `ProcessingData/Bi2O3`, or modify the paths in the relevant python files.
+Before running below scripts, copy the raw data from microscopy imaging and reflectance measurements available from <https://doi.org/10.7298/h63q-9r54> to `ProcessingData/Bi2O3`, or modify the paths in the relevant python files.
 
 ## Extract features from images
 In `ProcessingData`, execute
