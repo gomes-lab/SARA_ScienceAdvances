@@ -27,7 +27,7 @@ Software written by Maximilian Amsler, released on 7/24/2021
 
 If using this work for a publication, please cite:
 "Autonomous synthesis of metastable materials", 
-Sebastian Ament, Maximilian Amsler, Duncan R. Sutherland, Ming-Chiang Chang, Dan Guevarra, Aine B. Connolly, John M. Gregoire, Michael O. Thompson, Carla P. Gomes, R. Bruce van Dover, arXiv:2101.07385 
+Sebastian Ament, Maximilian Amsler, Duncan R. Sutherland, Ming-Chiang Chang, Dan Guevarra, Aine B. Connolly, John M. Gregoire, Michael O. Thompson, Carla P. Gomes, R. Bruce van Dover, [arXiv:2101.07385](https://arxiv.org/abs/2101.07385) 
 
 ## Disclaimer
 
