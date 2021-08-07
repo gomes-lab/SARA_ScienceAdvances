@@ -1,10 +1,8 @@
-# benchmarks inner loop acquisition functions
 using LinearAlgebra
 using GaussianDistributions
 using SARA
 using SARA: random_sampling, uncertainty_sampling, outer_sampling,
         TemperatureProfile, stripe_to_global
-            #center, get_relevant_T, get_global_data
 using ForwardDiff
 using Base.Threads
 using SARA: oSARA
