@@ -1,0 +1,23 @@
+name = "SARA"
+uuid = "ba38d075-ddda-45ee-9fd3-1b3d79220ed9"
+authors = ["Sebastian Ament <sebastianeament@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+ApproxFun = "28f2ccd6-bb30-5033-b560-165f7b14dc2f"
+BackgroundSubtraction = "9977cdcb-3521-4027-9f3f-3caff6505f42"
+CovarianceFunctions = "b3329135-7958-41d4-bb02-e084c5a526bf"
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
+GaussianDistributions = "bca5bafc-9f2e-496c-8c30-2a4e9dcd8e59"
+HDF5 = "f67ccb44-e63f-5c2f-98bd-6dc0ccc4ba2f"
+Interpolations = "a98d9a8b-a2ab-59e6-89dd-64a1c18fca59"
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+KroneckerProducts = "1b19e153-50d3-4699-8064-93bcb9fb4fba"
+LazyInverse = "d0afe1cb-6484-4949-b9e9-61bc645ed6c7"
+LazyLinearAlgebra = "2243f6fe-7ec1-4b08-8ffc-03329353bf89"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+LinearAlgebraExtensions = "cb114d4a-f1bd-499c-ad9e-7f2ed74575b9"
+OptimizationAlgorithms = "5eef6961-c6df-46a7-ba44-0f01c6045f8f"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+WoodburyIdentity = "49563772-d9e4-48b4-a8b6-4cbe661ead9f"
