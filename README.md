@@ -1,6 +1,6 @@
 # SARA_ScienceAdvances
 
-The raw data is available from eCommons (link). Download the image/spectroscopy data separately, and to process the data follow the instructions below.
+The raw data is available from eCommons (<https://doi.org/10.7298/h63q-9r54>). Download the image/spectroscopy data separately, and to process the data follow the instructions below.
 
 ## Preprocessing
 Before running below scripts, copy the raw data from microscopy imaging and reflectance measurements available from <https://doi.org/10.7298/h63q-9r54> to `ProcessingData/Bi2O3`, or modify the paths in the relevant python files.
@@ -48,7 +48,7 @@ Software written by Maximilian Amsler and Sebastian Ament, released on 7/24/2021
 
 If using this work for a publication, please cite:
 "Autonomous synthesis of metastable materials", 
-Sebastian Ament, Maximilian Amsler, Duncan R. Sutherland, Ming-Chiang Chang, Dan Guevarra, Aine B. Connolly, John M. Gregoire, Michael O. Thompson, Carla P. Gomes, R. Bruce van Dover, [arXiv:2101.07385](https://arxiv.org/abs/2101.07385) 
+Sebastian Ament, Maximilian Amsler, Duncan R. Sutherland, Ming-Chiang Chang, Dan Guevarra, Aine B. Connolly, John M. Gregoire, Michael O. Thompson, Carla P. Gomes, R. Bruce van Dover, [arXiv:2101.07385](https://arxiv.org/abs/2101.07385) (will be replaced with the link to the published article).
 
 ## Disclaimer
 
