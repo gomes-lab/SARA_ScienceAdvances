@@ -6,11 +6,11 @@ The raw data is available from eCommons (<https://doi.org/10.7298/h63q-9r54>). D
 Before running below scripts, copy the raw data from microscopy imaging and reflectance measurements available from <https://doi.org/10.7298/h63q-9r54> to `ProcessingData/Bi2O3`, or modify the paths in the relevant python files.
 
 ## Extract features from images
-In `ProcessingData`, execute
+In `ProcessingData`, using a python version later than 3.6, execute
 ```
 python get_gp-bias.py
 ```
-This script will extract the features from the images and create separate plots, which contain the image itself as well as the RGB and LSA bias.
+All relevant package dependencies can be satisfied through standard `PyPI` package installs. This script will extract the features from the images and create separate plots, which contain the image itself as well as the RGB and LSA bias.
 The bias features will be written to a file called `bias.json`.
 
 ## Process and plot reflectance spectroscopy
@@ -24,7 +24,7 @@ The coefficients will be written to a file called `legendre_coefficients.json`.
 ## Active learning set up
 
 Process the `legendre_coefficients.json` and `bias.json` files using the `inner_data_organizer.jl` script in `SARA.jl/ScienceAdvances2021/inner/`. Make sure to adjust the path variable in the script to match the location of the `.json` files. 
-Using a version of Julia greater than 1.6.2, execute the `install.jl` file in `GaussianDistributions.jl` and `SARA.jl`, in that order. 
+Using a version of Julia later than 1.6.2, execute the `install.jl` file in `GaussianDistributions.jl` and `SARA.jl`, in that order. 
 If the add operation of `GaussianDistributions.jl` for `SARA.jl` fails, add the package locally by typing `]add path/to/GaussianDistributions.jl\` in the REPL.
 After that, everything is set up for the active learning benchmarks.
 
